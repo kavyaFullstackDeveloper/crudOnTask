@@ -6,7 +6,10 @@ const mysql = require("mysql");
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+    origin: "https://taskonclient.vercel.app/",
+    methods: ["GET", "PUT", "POST", "DELETE"]
+}));
 
 const db = mysql.createConnection({
     host:"localhost",
@@ -38,8 +41,7 @@ app.put('/update/:id',(req,res)=>{
     const sql = "update student set Name = ?, Email=? where Id=?";
     const values = [
         req.body.name,
-        req.body.email,
-        
+        req.body.email,    
     ];
     const id = req.params.id;
     
